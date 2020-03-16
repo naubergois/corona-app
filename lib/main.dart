@@ -38,7 +38,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @mustCallSuper
   void initState()  {
 
-    const oneSec = const Duration(seconds:10);
+    //const oneSec = const Duration(minutes:1);
+    const oneSec = const Duration(seconds:1);
     new Timer.periodic(oneSec, (Timer t) => get_position());
 
     
@@ -50,8 +51,15 @@ class _MyHomePageState extends State<MyHomePage> {
     print(position);
     print('/position/'+
         position.latitude.toString()+'/'+position.longitude.toString());
-    await http.get(new Uri.http("192.168.0.103:5003", '/position/'+
-        position.latitude.toString()+'/'+position.longitude.toString()));
+    
+        try {
+          await http.get(new Uri.http("192.168.1.72:5003", '/position/'+
+                position.latitude.toString()+'/'+position.longitude.toString()+'/id'));
+
+
+        } on Exception catch (_) {
+          print('never reached');
+        }
   }
 
   void _incrementCounter() {
@@ -75,21 +83,11 @@ class _MyHomePageState extends State<MyHomePage> {
           
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
+            
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
