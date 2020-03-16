@@ -1,4 +1,4 @@
-# Corona Virus App
+# CoronaVirus (Covid-19) App
 
 Projeto de apoio ao monitoramento de casos do corona virus
 
